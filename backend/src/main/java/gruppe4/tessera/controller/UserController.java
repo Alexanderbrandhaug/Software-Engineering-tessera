@@ -23,7 +23,7 @@ public class UserController {
 
   @PostMapping(path="/add/user") // Map ONLY POST Requests
   public @ResponseBody String addNewUser (@RequestParam String name
-      , @RequestParam String email, @RequestParam String phoneNumber
+      , @RequestParam String email
       , @RequestParam boolean isAdmin, @RequestParam String password) {
     // @ResponseBody means the returned String is the response, not a view name
     // @RequestParam means it is a parameter from the GET or POST request
@@ -33,7 +33,6 @@ public class UserController {
       n.setName(name);
       n.setEmail(email);
       n.setAdmin(isAdmin);
-      n.setPhoneNumber(phoneNumber);
       n.setPassword(password);
       userService.saveUser(n);
       return "Saved";
