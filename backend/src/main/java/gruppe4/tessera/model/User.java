@@ -1,10 +1,12 @@
 package gruppe4.tessera.model;
 
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -13,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class User {
   @Id
   @GeneratedValue(strategy=GenerationType.AUTO) // ID will be used as primarykey and will be autoincremented
+  @Column(name = "user_id")
   private Integer id;
   private String name;
   @Column(unique=true, nullable = false) // tells the DB that email variable is going to be unique and not nullable in the DB
@@ -21,6 +24,8 @@ public class User {
   @Column(name = "is_admin")
   private boolean isAdmin;
   
+  @OneToMany(mappedBy="user")
+  private List<Post> posts;
   
 
   public Integer getId() {
@@ -60,4 +65,8 @@ public class User {
   public void setEmail(String email) {
     this.email = email;
   }
+  public void addPost(Post post){
+    posts.add(post);
+  }
+
 }
